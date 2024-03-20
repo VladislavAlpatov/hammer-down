@@ -1,0 +1,1 @@
+target_sources(hammer-down PRIVATE HammerDown.cpp)
