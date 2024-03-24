@@ -10,6 +10,7 @@
 #include "utils/AntiInjectionUtils.h"
 #include "modules/SignatureDetector.h"
 
+
 namespace hammer_down
 {
     void HammerDown::Tick()
@@ -47,12 +48,15 @@ namespace hammer_down
     }
     void HammerDown::DetectSignatures() const
     {
-        bool detected = modules::SignatureDetector::FoundSignatureMatch({"48 83 EC 28 45 33 C9 4C 8D 05 ? ? ? ? 48 8D 15 ? ? ? ? 33 C9 FF 15 ? ? ? ? 33 C0 48 83 C4 28 C3"});
+        bool detected = modules::SignatureDetector::FoundSignatureMatch(m_sigs);
 
         if (!detected)
             return;
 
         m_onSigInjection();
     }
-
+    void HammerDown::SetSignatures(const std::vector<std::string>& sigs)
+    {
+        m_sigs = sigs;
+    }
 }

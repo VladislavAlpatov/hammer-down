@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <functional>
 #include <asio.hpp>
+#include <vector>
+
 
 namespace hammer_down
 {
@@ -26,6 +28,8 @@ namespace hammer_down
 
             void DllInjectionCheck() const;
             void DetectSignatures() const;
+            void SetSignatures(const std::vector<std::string>& sigs);
+            std::vector<std::string> m_sigs;
             uint64_t m_millisecondsPerTick = 0;
             std::function<void()> m_onDllInjection = []{};
             std::function<void()> m_onSigInjection = []{};
