@@ -19,7 +19,7 @@ namespace hammer_down
         DetectSignatures();
     }
 
-    HammerDown::HammerDown() : m_threadPool(std::thread::hardware_concurrency())
+    HammerDown::HammerDown()
     {
 
     }
