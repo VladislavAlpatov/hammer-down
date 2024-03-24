@@ -8,12 +8,14 @@
 #include <thread>
 
 #include "utils/AntiInjectionUtils.h"
+#include "modules/SignatureDetector.h"
 
 namespace hammer_down
 {
     void HammerDown::Tick()
     {
         DllInjectionCheck();
+        DetectSignatures();
     }
 
     HammerDown::HammerDown() : m_threadPool(std::thread::hardware_concurrency())
@@ -24,6 +26,11 @@ namespace hammer_down
     void HammerDown::OnDllInjection(const std::function<void()> &payload)
     {
         m_onDllInjection = payload;
+    }
+
+    void HammerDown::OnSigMatchInjection(const std::function<void()> &payload)
+    {
+        m_onSigInjection = payload;
     }
     void HammerDown::DllInjectionCheck() const
     {
@@ -38,4 +45,14 @@ namespace hammer_down
         
         m_onDllInjection();
     }
+    void HammerDown::DetectSignatures() const
+    {
+        bool detected = modules::SignatureDetector::FoundSignatureMatch({"48 83 EC 28 45 33 C9 4C 8D 05 ? ? ? ? 48 8D 15 ? ? ? ? 33 C9 FF 15 ? ? ? ? 33 C0 48 83 C4 28 C3"});
+
+        if (!detected)
+            return;
+
+        m_onSigInjection();
+    }
+
 }

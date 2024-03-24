@@ -77,6 +77,15 @@
         "xloctime": "cpp",
         "xmemory": "cpp",
         "xtr1common": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "codecvt": "cpp",
+        "coroutine": "cpp",
+        "cstdarg": "cpp",
+        "future": "cpp",
+        "numeric": "cpp",
+        "queue": "cpp",
+        "random": "cpp",
+        "source_location": "cpp",
+        "strstream": "cpp"
     }
 }
