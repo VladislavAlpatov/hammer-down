@@ -51,7 +51,7 @@ namespace hammer_down
         bool detected = false;
         {
         std::scoped_lock lock(m_mutex);
-        modules::SignatureDetector::FoundSignatureMatch(m_sigs);
+        detected = modules::SignatureDetector::FoundSignatureMatch(m_sigs);
         }
         if (!detected)
             return;
