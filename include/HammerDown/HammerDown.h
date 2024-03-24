@@ -4,6 +4,8 @@
 #include <functional>
 #include <vector>
 #include <string>
+#include <mutex>
+
 
 namespace hammer_down
 {
@@ -21,7 +23,7 @@ namespace hammer_down
             void Tick();
 
             void OnDllInjection(const std::function<void()>& payload);
-            void OnSigMatchInjection(const std::function<void()>& payload);
+            void OnSigMatch(const std::function<void()>& payload);
             void SetSignatures(const std::vector<std::string>& sigs);
 
         private:
@@ -31,7 +33,8 @@ namespace hammer_down
             void DetectSignatures() const;
             std::vector<std::string> m_sigs;
             uint64_t m_millisecondsPerTick = 0;
+            mutable std::mutex m_mutex;            
             std::function<void()> m_onDllInjection = []{};
-            std::function<void()> m_onSigInjection = []{};
+            std::function<void()> m_onSigMatch = []{};
     };
 } // namespace hammer_head

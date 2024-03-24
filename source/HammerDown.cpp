@@ -29,9 +29,9 @@ namespace hammer_down
         m_onDllInjection = payload;
     }
 
-    void HammerDown::OnSigMatchInjection(const std::function<void()> &payload)
+    void HammerDown::OnSigMatch(const std::function<void()> &payload)
     {
-        m_onSigInjection = payload;
+        m_onSigMatch = payload;
     }
     void HammerDown::DllInjectionCheck() const
     {
@@ -48,12 +48,15 @@ namespace hammer_down
     }
     void HammerDown::DetectSignatures() const
     {
-        bool detected = modules::SignatureDetector::FoundSignatureMatch(m_sigs);
-
+        bool detected = false;
+        {
+        std::scoped_lock lock(m_mutex);
+        modules::SignatureDetector::FoundSignatureMatch(m_sigs);
+        }
         if (!detected)
             return;
 
-        m_onSigInjection();
+        m_onSigMatch();
     }
     void HammerDown::SetSignatures(const std::vector<std::string>& sigs)
     {

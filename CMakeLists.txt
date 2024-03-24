@@ -20,10 +20,7 @@ elseif(UNIX)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out/${CMAKE_BUILD_TYPE}")
 endif()
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
-
-include(SetupVcpkg)
+# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 project(hammer-down)
 add_library(hammer-down STATIC source/HammerDown.cpp)
