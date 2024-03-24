@@ -33,6 +33,7 @@ target_include_directories(hammer-down PRIVATE source)
 
 target_compile_definitions(hammer-down PRIVATE WIN32_LEAN_AND_MEAN)
 
+target_link_libraries(hammer-down PUBLIC asio)
 
 add_subdirectory(source)
 add_subdirectory(extlibs)
